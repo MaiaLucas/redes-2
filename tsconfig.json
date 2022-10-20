@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "target": "es5",                          
+    "module": "commonjs",  
+    "baseUrl": ".",                  
+    "lib": ["es6"],                     
+    "allowJs": true,
+    "outDir": "build",                          
+    "rootDir": "src",
+    "strict": true,         
+    "noImplicitAny": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "incremental": true,
+    "paths": {
+      "@interfaces/*": ["src/interfaces/*"],
+      "@utils": ["src/utils/index.ts"],
+      "@methods/*": ["src/methods/index.ts"],
+    }
+  },
+  "include": ["**/*.ts"],
+  "exclude": ["node_modules"]
+}
