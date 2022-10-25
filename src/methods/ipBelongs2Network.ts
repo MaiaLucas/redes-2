@@ -4,11 +4,15 @@ import { findFirstAndLastIP } from "./findFirstAndLastIP";
 export function ipBelongs2Network(
   IPv4NetworkAddress: string,
   ipAddress: string
-): boolean {
+): any {
   const { firstHost, lastHost } = findFirstAndLastIP(IPv4NetworkAddress);
 
-  return (
+  const ipBelongs =
     convertIpString2Decimal(ipAddress) >= convertIpString2Decimal(firstHost) &&
-    convertIpString2Decimal(ipAddress) <= convertIpString2Decimal(lastHost)
-  );
+    convertIpString2Decimal(ipAddress) <= convertIpString2Decimal(lastHost);
+  return {
+    network: IPv4NetworkAddress,
+    IP: ipAddress,
+    ipBelongs2Network: ipBelongs,
+  };
 }
