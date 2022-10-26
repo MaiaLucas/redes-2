@@ -12,7 +12,7 @@ export function ipBelongs2Network(
     convertIpString2Decimal(ipAddress) <= convertIpString2Decimal(lastHost);
   return {
     network: IPv4NetworkAddress,
-    IP: ipAddress,
-    ipBelongs2Network: ipBelongs,
+    ip: ipAddress,
+    belongs: ipBelongs,
   };
 }

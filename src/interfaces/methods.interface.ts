@@ -3,5 +3,5 @@ export default interface FirstAndLastIP {
   range: string;
   firstHost: string;
   lastHost: string;
-  broadcast: string;
+  broadcast?: string;
 }

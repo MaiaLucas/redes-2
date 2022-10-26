@@ -16,8 +16,8 @@ export function findFirstAndLastIP(IPv4NetworkAddress: string): FirstAndLastIP {
     range: `${convertDecimal2IpString(firstIp)} ➢ ${convertDecimal2IpString(
       lastIpPossible
     )}`,
-    firstHost: convertDecimal2IpString(firstIp + BigInt(1)),
-    lastHost: convertDecimal2IpString(lastIpPossible - BigInt(1)),
-    broadcast: convertDecimal2IpString(lastIpPossible),
+    firstHost: convertDecimal2IpString(firstIp), // convertDecimal2IpString(firstIp + BigInt(1)),
+    lastHost: convertDecimal2IpString(lastIpPossible), //convertDecimal2IpString(lastIpPossible - BigInt(1)),
+    // broadcast: convertDecimal2IpString(lastIpPossible),
   };
 }

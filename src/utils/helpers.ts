@@ -21,10 +21,9 @@ export function convertDecimal2IpString(value: bigint): string {
   return ipArr.join(".");
 }
 
-export function convertIpString2Decimal(strIp: string): any {
+export function convertIpString2Decimal(strIp: string): bigint {
   const arrIpValues: string[] = strIp.split(".").reverse();
   const arrShiftValue: IDec2Bin["shiftValue"][] = [...ShiftValues].reverse();
-  // const arrShiftValue = ShiftValues.reverse(); // WRONG
 
   let ipDecimalValue = arrIpValues.reduce((accumulator, curValue, idx) => {
     const binValue = string2Decimal({
@@ -36,7 +35,7 @@ export function convertIpString2Decimal(strIp: string): any {
     return binValue;
   }, 0);
 
-  return ipDecimalValue;
+  return BigInt(ipDecimalValue);
 }
 
 export function getAddressesRangeSize(subnetSize: string): bigint {
