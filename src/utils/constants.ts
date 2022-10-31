@@ -10,6 +10,8 @@ export enum TotalBits {
 // Quantidade, em hexadecimal, de bits para usar no shift
 // Baseado em octetos. Para a função de converter 
 // binário (decimal, no código) para string
+// Para cada "key", tem um "value" com 1s e/ou 0s
+// o numero na key representa a quantidade de 0s, e, antes deles, há 8 1s
 export const ShiftHexValues = {
   "0": 0xff,
   "8": 0xff00,

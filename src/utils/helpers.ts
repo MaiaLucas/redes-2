@@ -14,7 +14,9 @@ export function convertIpString2Decimal(strIp: string): bigint {
   const arrShiftValue: IDec2Bin["shiftValue"][] = [...ShiftValues].reverse();
 
   // O reduce é um loop que incrementa valores, baseado em alguns parametros.
-  // Tem um acumulador, um current, e um index, que é aumentado de 1 em 1.
+  // Tem um acumulador, que no final vai ser a soma de todos os binarios,
+  // um current (valor do array atual, não é acumulado), 
+  // e um index, que é aumentado de 1 em 1.
 
   // Retorna um número
   let ipDecimalValue = arrIpValues.reduce((accumulator, curValue, idx) => {
@@ -45,10 +47,20 @@ export function string2Decimal({
   shiftValue,
 }: IDec2Bin): any {
   // Exemplo para 10.10.10.0
-  // 0 | (000000 << 24)
-  // 1111111 | (10 << 16)
-  // 
-  return startValue | (value << BigInt(shiftValue));
+  // << preenche com zeros na direita
+  // | (bitwise OR operator) retorna 1 em cada posição que tiver pelo menos 1
+  // grosseiramente, é como se "adicionasse"
+
+  // Vai de 0, 8, 16, 24
+  // 0 | (0 << 0) == 0
+  // 0 | (10 << 8) == 101000000000 (2560n)
+  // 2560n | (10 << 16) == 
+  //    101000000000 (2560) | 10100000000000000000 (655360n) ==
+  //    10100000101000000000 (657920)
+  // 657920n | (10 << 24) == 168430080n ()
+
+  let val = startValue | (value << BigInt(shiftValue))
+  return val;
 }
 
 // Função que converte  Decimal [bigint] (binário) para String (IP)
@@ -62,23 +74,45 @@ export function convertDecimal2IpString(value: bigint): string {
   // posição de cada octeto (valores 24, 16, 8, 0). 
   // A função só vai olhar para ESSE octeto
 
-  let ipArr: number[] = Array.from(ShiftValues, (idx) =>
+  let ipArr: number[] = Array.from(ShiftValues, (idx) => {
     // Pega o valor que está na posição idx do shiftValues
-    decimal2String({ value, shiftValue: idx })
+    // Vai de 24, 16, 8, 0
+    return decimal2String({ value, shiftValue: idx })
+  }
   );
 
   // Concatena todos os elementos do array em uma string, com um ponto
-  return ipArr.join(".");
+  let word = ipArr.join(".")
+  return word;
 }
 
 // Retorna um objeto que implementa TypeBin2Dec
 export function decimal2String({ value, shiftValue }: TypeBin2Dec): any {
-  // value = 10100000101000000000000000000000
-  // value & 0
-  return (value & BigInt(ShiftHexValues[shiftValue])) >> BigInt(shiftValue);
+  // Exemplo para 168430080n
+  // obs: 168430080 == 1010000010100000101000000000
+  // (1010000010100000101000000000 & 11111111000000000000000000000000) >> 24
+  // == 1010000000000000000000000000 >> 24 == decimal 10
+  //
+  // (1010000010100000101000000000 & 00000000111111110000000000000000) >> 16
+  // == 10100000000000000000 >> 16 == decimal 10
+  // 
+  // (1010000010100000101000000000 & 00000000000000001111111100000000) >> 8
+  // == 101000000000 >> 8 == decimal 10
+  // 
+  // (1010000010100000101000000000 & 00000000000000000000000011111111) >> 0
+  // == decimal 0
+
+  // BigInt(ShiftHexValues[shiftValue] tem 
+  // 8 ums e 24 zeros
+  // 8 ums e 16 zeros
+  // 8 ums e 8 zeros
+  // 8 ums
+  let val = (value & BigInt(ShiftHexValues[shiftValue])) >> BigInt(shiftValue)
+  return val;
 }
 
-// Responsável por pegar a quantidade de possíveis hots para uma rede
+// Responsável por pegar a quantidade de possíveis hots para uma rede.
+// Usado na função da primeira questão (findFirstAndLastIP)
 export function getAddressesRangeSize(subnetSize: string): bigint {
   // Subtrai 32 do valor que existe na máscara, depois da barra
   const hostQtdBitsRemaining = TotalBits.IPv4 - Number(subnetSize);
