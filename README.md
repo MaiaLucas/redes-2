@@ -35,5 +35,5 @@ yarn dev
 ou
 
 ```text
-npm dev
+npm run dev
 ```
