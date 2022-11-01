@@ -17,11 +17,23 @@
 2. Abrir o terminal no diretorio principal (onde tem o package.json) e inserir o seguinte comando para instalar as dependências necessárias:
 
 ```text
-'yarn' ou 'npm install'
+npm install
+```
+
+ou
+
+```text
+yarn
 ```
 
 3. Após instalar as dependências necessárias rode o seguinte comando no terminal:
 
 ```text
-'yarn dev' ou 'npm dev'
+yarn dev
+```
+
+ou
+
+```text
+npm dev
 ```
