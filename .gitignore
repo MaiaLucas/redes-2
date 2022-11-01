@@ -2,3 +2,8 @@
 node_modules
 *.lock
 src/utils/backup helpers.ts
+src/index 3.ts
+src/index 4.ts
+package-lock.json
+questions.ts
+src/index backup.ts
