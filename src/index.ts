@@ -7,13 +7,15 @@ import {
 } from "./methods";
 var readline = require('readline');
 
-// Recebe valores do tipo string, vão ser aproveitados para todas as questões
+// Recebe valores padrão para usar nas questões, caso deseje
 const defaultAddress1: string = "10.10.10.0/24";
-const defaultN: number = 5;
 const defaultAddress2: string = "10.10.10.0/27";
+const defaultAddress3: string = "10.10.10.31/27";
+
+const defaultN: number = 5;
+
 const defaultIpAddress1: string = "125.50.63.254";
 const defaultIpAddress2: string = "199.50.61.30";
-const defaultAddress3: string = "10.10.10.31/27";
 
 // Questão 1
 function question01() {
@@ -31,7 +33,7 @@ function question01() {
     }
 
     const main = async () => {
-        log("Questão 01.")
+        log("Questão 01. Dado um endereço de rede, calcular o primeiro e o último endereço de IP.")
         await question1()
         // console.log(helperMap)
         let address = helperMap.get("address")
@@ -65,6 +67,7 @@ function question01() {
     main()
 }
 
+// Questão 2
 function question02() {
     let helperMap = new Map()
     helperMap.set("address", -1)
@@ -90,7 +93,7 @@ function question02() {
     }
 
     const main = async () => {
-        log("Questão 02.")
+        log("Questão 02. Dado um endereço de rede e um valor N, indicar todas as faixas de IP para todas as subredes necessárias \n para endereçar N subredes.")
         await question1()
         // console.log(helperMap)
         let address = helperMap.get("address")
@@ -135,6 +138,7 @@ function question02() {
     main()
 }
 
+// Questão 3
 function question03() {
     let helperMap = new Map()
     helperMap.set("address", -1)
@@ -160,7 +164,7 @@ function question03() {
     }
 
     const main = async () => {
-        log("Questão 03.")
+        log("Questão 03. Dado um endereço IP e um endereço de rede, indicar se o endereço pertence à rede indicada.")
         await question1()
         // console.log(helperMap)
         let address = helperMap.get("address")
@@ -211,6 +215,7 @@ function question03() {
     main()
 }
 
+// Questão 4
 function question04() {
     let helperMap = new Map()
     helperMap.set("ipAddress", -1)
@@ -220,7 +225,7 @@ function question04() {
     // Metodo para pegar o input
     const question1 = () => {
         return new Promise<void>((resolve, reject) => {
-            rl.question('Quantos valores gostaria de colocar como opções para rede? Digite um valor numérico ou 0 para "3": ', (answer: any) => {
+            rl.question('Quantos valores gostaria de colocar como opções para endereços de rede? Digite um valor numérico ou 0 para "3": ', (answer: any) => {
                 helperMap.set("options", answer)
                 resolve()
             })
@@ -247,7 +252,7 @@ function question04() {
     }
 
     const main = async () => {
-        log("Questão 04.")
+        log("Questão 04. Considerando uma lista de endereços de rede e dado um endereço IP, indicar qual endereço de rede contido na lista \n é 'dono' do endereço IP recebido. A resposta deve ser a subrede mais específica.")
         await question1()
         let options = helperMap.get("options")
         if (options === "0") {
@@ -299,14 +304,14 @@ function question04() {
             // Chama o método da questão 04, passando lista de possibilidades de rede pai,
             // e o ip a ser verificado
             const answer = findIPAddressOwner(networkAddressList, ipAddress);
-            table(findIPAddressOwner(
-                [
-                    defaultAddress1,
-                    defaultAddress2,
-                    defaultAddress3
-                ],
-                defaultIpAddress2
-            )); // Para teste
+            // table(findIPAddressOwner(
+            //     [
+            //         defaultAddress1,
+            //         defaultAddress2,
+            //         defaultAddress3
+            //     ],
+            //     defaultIpAddress2
+            // )); // Para teste
 
             // Mostra o resultado da questão 04 (Ip informado, e seu pai mais 
             // específico, caso haja. Caso não haja, mostra 404),
@@ -335,6 +340,7 @@ const menuOptions = "\n" +
     "Digite 3 para rodar a terceira questão\n" +
     "Digite 4 para rodar a quarta questão\n" +
     "Aperte ctrl + c para encerrar, a qualquer momento:\n"
+
 
 // Função async e recursiva inicial para pegar input do usuário
 var getAsyncRecursiveInputMenu = function () {
@@ -372,10 +378,3 @@ log("VP2 Running...");
 log("Bem vindo(a).")
 log("Obs: Note que todos os valores de endereço das questões 1-3 devem terminar com .0 seguido de / e a máscara")
 getAsyncRecursiveInputMenu(); // Input do usuário
-
-
-
-
-function helperQuestion01(helperMap: Map<String, String>) {
-
-}
